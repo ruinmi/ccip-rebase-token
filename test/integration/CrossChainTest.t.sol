@@ -93,8 +93,7 @@ contract CrossChainTest is Test {
         // configure pools
         vm.startPrank(owner);
         arbSepPool.applyChainUpdates(
-            new uint64[](0),
-            CCIPUtils.composeUpdates(address(sepToken), address(sepPool), sepDetails.chainSelector)
+            new uint64[](0), CCIPUtils.composeUpdates(address(sepToken), address(sepPool), sepDetails.chainSelector)
         );
         vm.selectFork(sepForkId);
         sepPool.applyChainUpdates(
@@ -115,42 +114,74 @@ contract CrossChainTest is Test {
         adminRegistry.setPool(token, pool);
     }
 
-    function routeMessage(uint256 activeFork) public {
-        
+    function routeMessage(uint256 localFork, uint256 remoteFork) public {
+        vm.selectFork(localFork);
+        simulator.switchChainAndRouteMessage(remoteFork);
+        vm.selectFork(remoteFork);
     }
 
-    function bridgeTokens(uint256 localFork, uint256 remoteFork, address sender, address receiver, uint256 amount, address localRouter, uint64 remoteChainSelector, address localLinkAddress, address localTokenAddress, address remoteTokenAddress) public {
+    function bridgeTokens(
+        uint256 localFork,
+        uint256 remoteFork,
+        address sender,
+        address receiver,
+        uint256 amount,
+        address localRouter,
+        uint64 remoteChainSelector,
+        address localLinkAddress,
+        address localTokenAddress,
+        address remoteTokenAddress
+    ) public {
         vm.selectFork(localFork);
         uint256 startingBalance = RebaseToken(localTokenAddress).balanceOf(sender);
-        
-        Client.EVM2AnyMessage memory evm2AnyMessage = CCIPUtils.buildCCIPMessage(receiver, localTokenAddress, amount, localLinkAddress);
+
+        Client.EVM2AnyMessage memory evm2AnyMessage =
+            CCIPUtils.buildCCIPMessage(receiver, localTokenAddress, amount, localLinkAddress);
         uint256 fee = IRouterClient(localRouter).getFee(remoteChainSelector, evm2AnyMessage);
-        
+
         vm.startPrank(sender);
         IERC20(localLinkAddress).approve(localRouter, fee);
         RebaseToken(localTokenAddress).approve(localRouter, amount);
         IRouterClient(localRouter).ccipSend(remoteChainSelector, evm2AnyMessage);
         vm.stopPrank();
-        
+
         uint256 endingBalance = RebaseToken(localTokenAddress).balanceOf(sender);
-        
+
         vm.warp(block.timestamp + 20 minutes);
         vm.selectFork(remoteFork);
         uint256 remoteBalanceBefore = RebaseToken(remoteTokenAddress).balanceOf(receiver);
-        vm.selectFork(localFork);
-        simulator.switchChainAndRouteMessage(remoteFork);
-        vm.selectFork(remoteFork);
+        routeMessage(localFork, remoteFork);
         uint256 remoteBalanceAfter = RebaseToken(remoteTokenAddress).balanceOf(receiver);
-        
+
         assertEq(remoteBalanceAfter - remoteBalanceBefore, amount);
         assertEq(endingBalance + amount, startingBalance);
     }
 
     function test_crossSend() external {
-        bridgeTokens(sepForkId, arbSepForkId, jiating, feiyu, SEND_AMOUNT, address(sepRouter), arbSepDetails.chainSelector, sepDetails.linkAddress, address(sepToken), address(arbSepToken));
-        
-        bridgeTokens(arbSepForkId, sepForkId, feiyu, jiating, SEND_AMOUNT, address(arbSepRouter), sepDetails.chainSelector, arbSepDetails.linkAddress, address(arbSepToken), address(sepToken));
-    }
+        bridgeTokens(
+            sepForkId,
+            arbSepForkId,
+            jiating,
+            feiyu,
+            SEND_AMOUNT,
+            address(sepRouter),
+            arbSepDetails.chainSelector,
+            sepDetails.linkAddress,
+            address(sepToken),
+            address(arbSepToken)
+        );
 
-    function test_releaseOrMint() external {}
+        bridgeTokens(
+            arbSepForkId,
+            sepForkId,
+            feiyu,
+            jiating,
+            SEND_AMOUNT,
+            address(arbSepRouter),
+            sepDetails.chainSelector,
+            arbSepDetails.linkAddress,
+            address(arbSepToken),
+            address(sepToken)
+        );
+    }
 }

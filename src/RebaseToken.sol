@@ -23,8 +23,7 @@ contract RebaseToken is ERC20, Ownable, AccessControl {
 
     event InterestSet();
 
-    constructor() ERC20("Rebase Token", "RBT") Ownable(msg.sender) {
-    }
+    constructor() ERC20("Rebase Token", "RBT") Ownable(msg.sender) {}
 
     /**
      * @notice Grants the MINT_AND_BURN_ROLE to an account
