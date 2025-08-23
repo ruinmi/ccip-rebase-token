@@ -16,8 +16,9 @@ contract RebaseTokenTest is Test {
         vm.prank(OWNER);
         rbt.grantMintAndBurnRole(ADMIN);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.mint(user, amount, rbt.getInterestRate());
+        vm.stopPrank();
         _;
     }
 
@@ -57,8 +58,9 @@ contract RebaseTokenTest is Test {
         vm.prank(OWNER);
         rbt.grantMintAndBurnRole(ADMIN);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.mint(OWNER, MINT_AMOUNT, rbt.getInterestRate());
+        vm.stopPrank();
     }
 
     function test_revertIfNotOwnerGrantMintAndBurnRole() external {
@@ -77,9 +79,10 @@ contract RebaseTokenTest is Test {
         vm.warp(1 hours);
         uint256 interest = rbt.getUserInterest(OWNER);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.mint(OWNER, MINT_AMOUNT, rbt.getInterestRate());
-
+        vm.stopPrank();
+        
         assert(rbt.getPrincipal(OWNER) == 2 * MINT_AMOUNT + interest);
     }
 
@@ -87,9 +90,10 @@ contract RebaseTokenTest is Test {
         vm.prank(OWNER);
         rbt.setInterestRate(4e10);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.mint(OWNER, MINT_AMOUNT, rbt.getInterestRate());
-
+        vm.stopPrank();
+        
         assert(rbt.getUserInterestRate(OWNER) == 4e10);
     }
 
@@ -166,12 +170,11 @@ contract RebaseTokenTest is Test {
         vm.prank(OWNER);
         rbt.setInterestRate(4e10);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.mint(ADMIN, MINT_AMOUNT, rbt.getInterestRate());
-
-        vm.prank(ADMIN);
         bool success = rbt.transfer(OWNER, MINT_AMOUNT);
-
+        vm.stopPrank();
+        
         assert(success == true);
         assert(rbt.getPrincipal(OWNER) == 2 * MINT_AMOUNT);
         assert(rbt.getUserInterestRate(OWNER) == 4e10);
@@ -218,13 +221,11 @@ contract RebaseTokenTest is Test {
         vm.prank(OWNER);
         rbt.setInterestRate(4e10);
 
-        vm.prank(ADMIN);
+        vm.startPrank(ADMIN);
         rbt.approve(ADMIN, MINT_AMOUNT);
-        vm.prank(ADMIN);
         rbt.mint(ADMIN, MINT_AMOUNT, rbt.getInterestRate());
-
-        vm.prank(ADMIN);
         bool success = rbt.transferFrom(ADMIN, OWNER, MINT_AMOUNT);
+        vm.stopPrank();
 
         assert(success == true);
         assert(rbt.getPrincipal(OWNER) == 2 * MINT_AMOUNT);

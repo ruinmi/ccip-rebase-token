@@ -16,7 +16,7 @@ contract RebaseToken is ERC20, Ownable, AccessControl {
     error RebaseToken_InterestRateCanOnlyDecrease();
 
     bytes32 private constant MINT_AND_BURN_ROLE = keccak256("MINT_AND_BURN_ROLE");
-    uint256 private constant INTERST_RATE_PRECISION_FACTOR = 1e18;
+    uint256 private constant INTEREST_RATE_PRECISION_FACTOR = 1e18;
     uint256 private _interestRate = 5e10;
     mapping(address => uint256) private _userInterestRate;
     mapping(address => uint256) private _userBalanceUpdateTimestamp;
@@ -147,7 +147,7 @@ contract RebaseToken is ERC20, Ownable, AccessControl {
     }
 
     function getInterestRatePrecisionRate() external pure returns (uint256) {
-        return INTERST_RATE_PRECISION_FACTOR;
+        return INTEREST_RATE_PRECISION_FACTOR;
     }
 
     function getMintAndBurnRole() external pure returns (bytes32) {
@@ -181,6 +181,6 @@ contract RebaseToken is ERC20, Ownable, AccessControl {
         uint256 principleBalance = super.balanceOf(user);
         uint256 interestRate = _userInterestRate[user];
         uint256 timeElapsed = block.timestamp - _userBalanceUpdateTimestamp[user];
-        accumulatedInterest = principleBalance * interestRate * timeElapsed / INTERST_RATE_PRECISION_FACTOR;
+        accumulatedInterest = principleBalance * interestRate * timeElapsed / INTEREST_RATE_PRECISION_FACTOR;
     }
 }
