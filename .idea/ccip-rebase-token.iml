@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/crates/arrayvec/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/crates/build-commit/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/access-controller/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/base-token-pool/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/burnmint-token-pool/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/ccip-common/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/ccip-offramp/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/ccip-router/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/example-ccip-receiver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/example-ccip-sender/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/external-program-cpi-stub/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/fee-quoter/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/lockrelease-token-pool/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/mcm/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/ping-pong-demo/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/rmn-remote/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/test-ccip-invalid-receiver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/test-ccip-receiver/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/test-token-pool/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/programs/timelock/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/lib/chainlink-local/lib/chainlink-ccip/chains/solana/contracts/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
