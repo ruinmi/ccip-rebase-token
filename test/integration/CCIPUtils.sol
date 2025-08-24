@@ -5,6 +5,13 @@ import {TokenPool} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contract
 import {RateLimiter} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/libraries/RateLimiter.sol";
 import {Client} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/libraries/Client.sol";
 
+/*
+ * @title CCIPUtils
+ * @notice A utility library for composing CCIP messages and chain updates for TokenPools.
+ * @dev This library provides functions to create chain updates for TokenPools and to build CCIP messages
+ *      for cross-chain token transfers. It simplifies the process of configuring TokenPools and sending
+ *      messages across different chains using Chainlink's CCIP.
+ */
 library CCIPUtils {
     function composeUpdates(address token, address pool, uint64 chainSelector)
         external

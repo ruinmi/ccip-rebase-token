@@ -16,6 +16,12 @@ import {RegistryModuleOwnerCustom} from
     "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/tokenAdminRegistry/RegistryModuleOwnerCustom.sol";
 import {Client} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/libraries/Client.sol";
 
+/*
+ * @title A Foundry test for cross-chain transfers using RebaseToken and RebaseTokenPool
+ * @notice This test sets up two forks (Sepolia and Arbitrum Sepolia), deploys RebaseToken and RebaseTokenPool on each,
+ *         configures them for cross-chain transfers, and tests sending tokens between the two chains using CCIP.
+ * @dev The test uses CCIPLocalSimulatorFork to simulate the CCIP environment and route messages between the two forks.
+ */
 contract CrossChainTest is Test {
     uint256 public sepForkId;
     uint256 public arbSepForkId;

@@ -7,11 +7,22 @@ import {IERC20} from
 import {IRebaseToken} from "src/interfaces/IRebaseToken.sol";
 import {Pool} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/libraries/Pool.sol";
 
+/*
+ * @title A TokenPool implementation for rebase tokens
+ * @notice This contract extends the TokenPool contract to handle rebase tokens, which can change their total supply.
+ *         It implements the lockOrBurn and releaseOrMint functions to manage token transfers across chains,
+ *         taking into account the rebase mechanics.
+ */
 contract RebaseTokenPool is TokenPool {
     constructor(IERC20 token, address[] memory allowlist, address rmnProxy, address router)
         TokenPool(token, 18, allowlist, rmnProxy, router)
     {}
 
+    /*
+     * @notice Locks and burns tokens on the local chain, to be released or minted on the remote chain.
+     * @param lockOrBurnIn The input parameters for the lock or burn operation.
+     * @return lockOrBurnOut The output parameters for the lock or burn operation, including the remote token address and pool data.
+     */
     function lockOrBurn(Pool.LockOrBurnInV1 calldata lockOrBurnIn)
         external
         returns (Pool.LockOrBurnOutV1 memory lockOrBurnOut)
@@ -26,6 +37,11 @@ contract RebaseTokenPool is TokenPool {
         });
     }
 
+    /*
+     * @notice Releases or mints tokens on the local chain, after they have been locked or burned on the remote chain.
+     * @param releaseOrMintIn The input parameters for the release or mint operation.
+     * @return releaseOrMintOut The output parameters for the release or mint operation, including the amount of tokens released or minted.
+     */
     function releaseOrMint(Pool.ReleaseOrMintInV1 calldata releaseOrMintIn)
         external
         returns (Pool.ReleaseOrMintOutV1 memory)

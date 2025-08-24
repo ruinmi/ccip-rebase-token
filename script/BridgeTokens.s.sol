@@ -9,6 +9,16 @@ import {Client} from "@chainlink/local/lib/chainlink-ccip/chains/evm/contracts/l
 import {IERC20} from
     "@chainlink/local/lib/chainlink-evm/contracts/src/v0.8/vendor/openzeppelin-solidity/v4.8.3/contracts/token/ERC20/IERC20.sol";
 
+/*
+ * @title A script to bridge tokens using CCIP
+ * @notice This script uses Foundry's Script functionality to broadcast a transaction that bridges tokens
+ *        from the local chain to a remote chain using Chainlink's CCIP protocol. It
+ *        constructs the necessary message and handles token approvals and fee payments.
+ * @param receiver The address on the remote chain to receive the tokens.
+ * @param localToken The address of the token on the local chain to be bridged.
+ * @param amount The amount of tokens to be bridged.
+ * @param remoteChainSelector The chain selector (identifier) for the remote chain.
+ */
 contract BridgeTokens is Script {
     function run(address receiver, address localToken, uint256 amount, uint64 remoteChainSelector)
         external

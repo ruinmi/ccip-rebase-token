@@ -5,6 +5,13 @@ import {RebaseToken} from "src/RebaseToken.sol";
 import {Test, console} from "forge-std/Test.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @title A Foundry unit test for RebaseToken
+ * @notice This test contract verifies the functionality of the RebaseToken contract, including interest rate management,
+ *         minting and burning of tokens, balance calculations with interest, and transfer behaviors.
+ * @dev The test uses Foundry's Test framework to create a series of unit tests that cover various scenarios and edge cases
+ *      for the RebaseToken contract.
+ */
 contract RebaseTokenTest is Test {
     RebaseToken public rbt;
 

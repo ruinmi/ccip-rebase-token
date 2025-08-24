@@ -3,6 +3,12 @@ pragma solidity ^0.8.27;
 
 import {IRebaseToken} from "src/interfaces/IRebaseToken.sol";
 
+/*
+ * @title Vault Contract
+ * @notice This contract allows users to deposit and redeem Ether in exchange for Rebase Tokens.
+ * The vault mints Rebase Tokens when users deposit Ether and burns them when users redeem their
+ * tokens for Ether. Each user has their own interest rate that is set at the time of deposit.
+ */
 contract Vault {
     error Vault_RedeemFailed();
 

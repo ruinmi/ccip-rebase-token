@@ -11,7 +11,6 @@ import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
  * @notice The interst rate in the smart contract can only decrease
  * @notice Each user will have their own interst rate that is the global interest rate at the time of depositing
  */
-
 contract RebaseToken is ERC20, Ownable, AccessControl {
     error RebaseToken_InterestRateCanOnlyDecrease();
 
