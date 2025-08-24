@@ -29,7 +29,8 @@ contract TokenAndPoolDeployer is Script {
 
         vm.startBroadcast();
         rebaseToken = new RebaseToken();
-        pool = new RebaseTokenPool(IERC20(address(rebaseToken)), allowlist, network.rmnProxyAddress, network.routerAddress);
+        pool =
+            new RebaseTokenPool(IERC20(address(rebaseToken)), allowlist, network.rmnProxyAddress, network.routerAddress);
         RegistryModuleOwnerCustom(network.registryModuleOwnerCustomAddress).registerAdminViaOwner(address(rebaseToken));
         ITokenAdminRegistry(network.tokenAdminRegistryAddress).acceptAdminRole(address(rebaseToken));
         ITokenAdminRegistry(network.tokenAdminRegistryAddress).setPool(address(rebaseToken), address(pool));

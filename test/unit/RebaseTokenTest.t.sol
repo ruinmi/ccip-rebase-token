@@ -89,7 +89,7 @@ contract RebaseTokenTest is Test {
         vm.startPrank(ADMIN);
         rbt.mint(OWNER, MINT_AMOUNT, rbt.getInterestRate());
         vm.stopPrank();
-        
+
         assert(rbt.getPrincipal(OWNER) == 2 * MINT_AMOUNT + interest);
     }
 
@@ -100,7 +100,7 @@ contract RebaseTokenTest is Test {
         vm.startPrank(ADMIN);
         rbt.mint(OWNER, MINT_AMOUNT, rbt.getInterestRate());
         vm.stopPrank();
-        
+
         assert(rbt.getUserInterestRate(OWNER) == 4e10);
     }
 
@@ -181,7 +181,7 @@ contract RebaseTokenTest is Test {
         rbt.mint(ADMIN, MINT_AMOUNT, rbt.getInterestRate());
         bool success = rbt.transfer(OWNER, MINT_AMOUNT);
         vm.stopPrank();
-        
+
         assert(success == true);
         assert(rbt.getPrincipal(OWNER) == 2 * MINT_AMOUNT);
         assert(rbt.getUserInterestRate(OWNER) == 4e10);
